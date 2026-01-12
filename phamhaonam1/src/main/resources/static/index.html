@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quản lý sinh viên</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Quản lý sinh viên</h1>
+
+    <div class="controls">
+      <input id="searchInput" placeholder="Tìm theo tên..." />
+      <button id="searchBtn">Tìm</button>
+      <input id="idInput" placeholder="Tìm theo ID..." style="width:120px" />
+      <button id="searchIdBtn">Tìm theo ID</button>
+    </div>
+
+    <form id="addForm" class="form-inline">
+      <input id="nameInput" placeholder="Họ & tên" required />
+      <input id="emailInput" placeholder="Email" required />
+      <button type="submit">Thêm</button>
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Họ & tên</th>
+          <th>Email</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody id="studentsTable"></tbody>
+    </table>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
