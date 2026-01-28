@@ -10,8 +10,22 @@ function qs(id){
 async function fetchStudents(){
   try{
     const res = await fetch(API_BASE);
-    const data = await res.json();
-    renderTable(data);
+    let data = await res.json();
+    
+    // Nếu API trả về array trực tiếp
+    if(Array.isArray(data)){
+      renderTable(data);
+    }
+    // Nếu API trả về object chứa array
+    else if(data && Array.isArray(data.content)){
+      renderTable(data.content);
+    }
+    else if(data && Array.isArray(data._embedded?.hocsinh)){
+      renderTable(data._embedded.hocsinh);
+    }
+    else {
+      renderTable(data);
+    }
   }catch(err){alert('Lỗi khi tải danh sách: '+err)}
 }
 
