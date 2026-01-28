@@ -1,7 +1,12 @@
-const API_BASE = '/api/students';
+const API_BASE = '/api/students'; // localhost:8080/api/students
 
-function qs(id){return document.getElementById(id)}
 
+// hàm lấy phần tử theo id
+function qs(id){
+  return document.getElementById(id)}
+
+
+// lấy dữ liệu sinh viên
 async function fetchStudents(){
   try{
     const res = await fetch(API_BASE);
@@ -10,8 +15,11 @@ async function fetchStudents(){
   }catch(err){alert('Lỗi khi tải danh sách: '+err)}
 }
 
+
+// hiển thị dữ liệu sinh viên lên bảng
 function renderTable(students){
   const tbody = qs('studentsTable');
+  // xóa dữ liệu cũ
   tbody.innerHTML = '';
   if(!students || students.length===0){
     tbody.innerHTML = '<tr><td colspan="4">Không có sinh viên</td></tr>';
@@ -32,10 +40,14 @@ function renderTable(students){
   });
 }
 
+
+// hàm để tránh lỗi hiển thị HTML
 function escapeHtml(text){
   return text.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 }
 
+
+// xử lý xóa sinh viên
 async function onDelete(id){
   if(!confirm('Xóa sinh viên có ID '+id+'?')) return;
   try{
@@ -44,6 +56,9 @@ async function onDelete(id){
   }catch(err){alert('Xóa lỗi: '+err)}
 }
 
+
+
+// xử lý sửa sinh viên
 async function onEdit(id){
   try{
     const res = await fetch(`${API_BASE}/${id}`);
@@ -61,7 +76,10 @@ async function onEdit(id){
   }catch(err){alert('Sửa lỗi: '+err)}
 }
 
+
+
 document.addEventListener('DOMContentLoaded',()=>{
+  // xử lý thêm sinh viên
   qs('addForm').addEventListener('submit',async e=>{
     e.preventDefault();
     const name = qs('nameInput').value.trim();
@@ -77,7 +95,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       fetchStudents();
     }catch(err){alert('Thêm lỗi: '+err)}
   });
-
+  // xử lý tìm kiếm sinh viên
   qs('searchBtn').addEventListener('click', async ()=>{
     const q = qs('searchInput').value.trim();
     if(!q){fetchStudents();return}
@@ -87,7 +105,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       renderTable(data);
     }catch(err){alert('Tìm kiếm lỗi: '+err)}
   });
-
+  // xử lý tìm kiếm theo ID
   qs('searchIdBtn').addEventListener('click', async ()=>{
     const id = qs('idInput').value.trim();
     if(!id){fetchStudents(); return}
